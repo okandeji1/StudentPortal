@@ -1,0 +1,378 @@
+const express = require('express');
+const path = require('path');
+const favicon = require('static-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const expressSession = require('express-session');
+const passport = require('passport');
+const config = require('./config/database');
+const bcrypt = require('bcryptjs');
+const ejs = require('ejs');
+const mongoose = require('mongoose');
+const LocalStrategy = require('passport-local').Strategy;
+// require('./main')(app, passport); // load our routes and pass in our app and fully configured passport
+
+const routes = require('./routes/index');
+const users = require('./routes/users');
+const about = require('./routes/about');
+
+const app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+
+app.use(favicon());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressValidator());
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./public'));
+app.use('/static', express.static(path.join(__dirname, './public')));
+
+// use connect-flash for flash messages stored in session
+app.use(require('connect-flash')());
+require('./config/passport')(passport); // pass passport for configuration
+
+// Creating database connection
+
+mongoose.connect(config.database);
+
+let db = mongoose.connection;
+
+//  Check for connection
+
+db.once('open', function() {
+    console.log("Database connected!");
+});
+
+//  Check for db connection error
+
+db.on('error', console.error.bind(console, 'connection error:'));
+
+// Bring in model
+
+let User = require('./models/user');
+passport.use(new Strategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+app.get('/', function(req, res, next) {
+    res.render('index', {
+        title: 'Node App',
+        message: 'Oh! What a wonderful morning it is',
+        copyrightYear: new Date().getFullYear()
+    });
+});
+
+app.get('/dashboard', function(req, res, next) {
+    res.render('dashboard', {
+        title: 'Node App',
+        message: 'Welcome To Your Portal',
+        copyrightYear: new Date().getFullYear()
+    });
+});
+
+app.get('/profile', function(req, res, next) {
+    res.render('profile', {
+        copyrightYear: new Date().getFullYear()
+    });
+});
+
+app.get('/login', function(req, res, next) {
+    res.render('login', {
+        copyrightYear: new Date().getFullYear()
+    });
+});
+
+
+
+// User Registration process
+
+app.post('/dashboard', (req, res, next) => {
+    // console.log(req.body.email);
+    let matric = req.body.matric;
+    let name = req.body.name;
+    let email = req.body.email;
+    let password = req.body.password;
+    let password2 = req.body.password2;
+    let phone = req.body.phone;
+    let faculty = req.body.faculty;
+    let department = req.body.department;
+    let programme = req.body.programme;
+    let level = req.body.level;
+    let address = req.body.address;
+    let photo = req.body.photo;
+
+    req.checkBody('matric', 'Matric is required').notEmpty();
+    req.checkBody('name', 'Name is required').notEmpty();
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'Name is required').notEmpty();
+    req.checkBody('password2', 'Password do not match').equals(req.body.password);
+    req.checkBody('phone', 'Phone is required').notEmpty();
+    req.checkBody('faculty', 'Faculty is required').notEmpty();
+    req.checkBody('department', 'Department is required').notEmpty();
+    req.checkBody('programme', 'Programme is required').notEmpty();
+    req.checkBody('level', 'Level is required').notEmpty();
+    req.checkBody('address', 'Address is required').notEmpty();
+    // req.checkBody('photo', 'Photo is required').notEmpty();
+
+    let errors = req.validationErrors();
+
+    if (errors) {
+        console.log(errors);
+        return errors;
+        res.render('dashboard', {
+            errors: errors,
+        })
+    } else {
+        let newUser = new User({
+            matric: matric,
+            name: name,
+            email: email,
+            password: password,
+            phone: phone,
+            faculty: faculty,
+            department: department,
+            programme: programme,
+            level: level,
+            address: address,
+            photo: photo,
+        });
+
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if (err) {
+                    console.log(err);
+                }
+                newUser.password = hash;
+                newUser.save((err) => {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    } else {
+                        req.flash('success', 'You are now registered and can now log in.');
+                        res.redirect('/');
+                    }
+                })
+            })
+        })
+    }
+
+
+});
+
+// User Login
+
+app.post('/login', (req, res, next) => {
+    // console.log(req.body.password);
+
+    passport.authenticate('local', {
+            failureRedirect: '/profile',
+            // successRedirect: '/profile',
+            failureFlash: true,
+        }), (req, res, next) => {
+            res.send('Success');
+        }
+        //     // .then((err) => {
+        //     console.log('Successful');
+        // })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
+
+
+    // app.post('/login',
+    //     passport.authenticate('local', { failureRedirect: '/' }),
+    //     function(req, res) {
+    //         req.login(user, function(err) {
+    //             if (err) { return next(err); }
+    //             return res.redirect('/dashboard' + req.user.email);
+    //         });
+
+    //         // res.redirect('/profile' + req.user.email);
+    //     });
+
+
+});
+
+
+app.listen(4000, () => {
+    console.log('Server is on and listening on 4000');
+});
+
+
+module.exports = app;
+
+let newUser = new User({
+            matric: matric,
+            name: name,
+            email: email,
+            password: password,
+            phone: phone,
+            faculty: faculty,
+            department: department,
+            programme: programme,
+            level: level,
+            address: address,
+            photo: photo,
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.post('/login', (req, res, next) => {
+    // console.log(req.body.password);
+
+    passport.authenticate('local', {
+            failureRedirect: '/profile',
+            // successRedirect: '/profile',
+            failureFlash: true,
+        }), (req, res, next) => {
+            res.send('Success');
+        }
+        //     // .then((err) => {
+        //     console.log('Successful');
+        // })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
+
+
+    // app.post('/login',
+    //     passport.authenticate('local', { failureRedirect: '/' }),
+    //     function(req, res) {
+    //         req.login(user, function(err) {
+    //             if (err) { return next(err); }
+    //             return res.redirect('/dashboard' + req.user.email);
+    //         });
+
+    //         // res.redirect('/profile' + req.user.email);
+    //     });
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container
+      
+      h2.text-center.top-buffer NodeJS User Registration Tutorial
+      form.form-horizontal(role="form", method="post")
+        .form-group
+          .alert.alert-danger(role='alert', id="msgDiv")
+
+        .form-group
+          label.col-sm-3.control-label(for="fullname") 
+           strong Full Name
+          .col-sm-9
+            input#fullname.form-control(type="text" placeholder="Full Name" autofocus="" value="")
+        .form-group
+          label.col-sm-3.control-label(for="email") 
+           strong Email
+          .col-sm-9
+            input#email.form-control(type="email" placeholder="Email")
+        .form-group
+          label.col-sm-3.control-label(for="password") 
+           strong Password
+          .col-sm-9
+            input#password.form-control(type="password" placeholder="Password")
+        .form-group
+          label.col-sm-3.control-label(for="cpassword") 
+           strong Confirm Password
+          .col-sm-9
+            input#cpassword.form-control(type="password" placeholder="Confirm password")
+        .form-group
+          label.col-sm-9.control-label(for="dob") 
+           strong Date of Birth
+          .col-sm-9
+            input#dob.form-control(type="date")
+        .form-group
+          label.col-sm-3.control-label(for="country") 
+           strong Country
+          .col-sm-9
+            select#country.form-control
+              option(value='') Please Select
+              option USA
+              option United Kingdom	
+              option Germany
+              option Denmark
+              option Ecuador
+              option Canada
+              option France
+              option Others
+        .form-group
+          label.control-label.col-sm-3 
+           strong Gender
+          .col-sm-6
+            .row
+              .col-sm-6
+                label.radio-inline
+                  input#femaleRadio(name="gender" type="radio" value="Female")
+                  | &nbsp;Female
+              .col-sm-4
+                label.radio-inline
+                  input#maleRadio(name="gender" type="radio" value="Male")
+                  | &nbsp;Male              
+        .form-group
+          label.control-label.col-sm-9 
+           strong Meal Preference
+          .col-sm-9
+            .checkbox
+              label
+                input#calorieCheckbox(type="checkbox" value="Calorie" name="calorie")
+                | &nbsp;Low calorie
+            .checkbox
+              label
+                input#saltCheckbox(type="checkbox" value="Salt"  name="salt")
+                | &nbsp;Low salt
+        .form-group
+          .col-sm-9.col-sm-offset-3
+            .checkbox
+              label
+                input#terms(type="checkbox" value="yes" name="terms")
+                | &nbsp;I accept 
+                a(href="#") terms
+        .form-group
+          .col-sm-9.col-sm-offset-3
+            button#register.btn.btn-primary.btn-block(type="e") Register
+
+
+
+                        req.flash("error", "Something went wrong");
+                                    res.redirect('/login')
+
+<%= (typeof user.matric !== "undefined" user.matric = "" )

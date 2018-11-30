@@ -1,0 +1,166 @@
+<%- include partials/header -%>
+<%- include partials/navigation -%>
+       <h1 class="text-center text-blue bg-blue-gradient"></h1>
+       <div class="col-5 float-right mt-5 mr-5">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+             <h3 class="text-center">Login to your account</h3>
+            </div>
+            <div class="card-body">
+              <form action="/login" method="post">
+                <div class="form-group">
+                 <input type="text" required="true" name="username" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                 <input type="password" required="true" name="password" placeholder="Password" class="form-control">
+                </div>
+               <!-- <div class="form-group ">
+                  <div id="msgDiv" class="form-control alert alert-danger display-none" role="alert"><%= (typeof errors != "undefined" ? errors : "") %>
+                   </div>
+                </div> -->
+                <div class="card-footer">
+                  <button class="btn btn-outline-success" id="register" type="submit" name="submit">Login</button>
+                  <button class="btn btn-outline-primary" type="button" name="submit" data-toggle="modal" data-target="#exampleModalLong">Sign Up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+       </div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Register</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="/dashboard" method="post">
+       <div class="form-group">
+        <input type="text" required="true" id="matric" name="matric" placeholder="Matric No" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="text" required="true" id="fullname" name="username" placeholder="Full Name" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="email" required="true" id="email" name="email" placeholder="Email Address" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="password" required="true" id="password" name="password" placeholder="Password" class="form-control">
+       </div>
+       <div class="form-group">
+         <input type="password" required="true" id="cpassword" name="password2" placeholder="Confirm Password" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="text" required="true" id="phone" name="phone" placeholder="Phone Number" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="text" required="true" id="faculty" name="faculty" placeholder="Faculty" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="text" required="true" id="department" name="department" placeholder="Department" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="text" required="true" id="programme" name="programme" placeholder="Programme" class="form-control">
+       </div>
+       <div class="form-group">
+        <input type="text" required="true" id="level" name="level" placeholder="Current Level" class="form-control">
+       </div>
+       <div>
+        <textarea rows="" id="address" required="true" cols="" placeholder="Address" name=address class="form-control"></textarea>
+       </div>
+       <div class="form-group">
+        <input type="file" id="photo" name="photo" class="form-control">
+       </div>
+     
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-outline-success">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+    <%- include partials/footer -%>
+
+
+
+      <script type="text/javascript">
+       
+      // $(function() {
+      
+      //     $("#register").html(html).on('click', function(event) {
+      //         event.preventDefault(e);
+      
+      //         var matric = $('#matric').val();
+      //         var fullname = $("#fullname").val();
+      //         var email = $("#email").val();
+      //         var password = $("#password").val();
+      //         var cpassword = $("#cpassword").val();
+      //         var phone = $('#phone').val();
+      //         var faculty = $('#faculty').val();
+      //         var department = $('#department').val();
+      //         var programme = $('#programme').val();
+      //         var level = $('#level').val();
+      //         var address = $('#address').val();
+      //         var photo = $('#photo').val();
+      //         // var dob = $("#dob").val();
+      //         // var country = $("#country").val();
+      //         // var gender = $('input[name="gender"]:checked').val();
+      //         // var terms = $('input[name="terms"]:checked').val();
+      
+      //         if (!matric || !fullname || !email || !password || !cpassword || !phone || !faculty || !department || !programme || !level || !address || !photo) {
+      
+      //             $("#msgDiv").show().html("All fields are required.");
+      
+      //         } else if (cpassword != password) {
+      
+      //             $("#msgDiv").show().html("Passowrds should match.");
+      
+      //         } // else if (!terms) {
+      
+      //         //     $("#msgDiv").show().html("Please agree to terms and conditions.");
+      //         // } 
+      //         else {
+      
+      //             $.ajax({
+      //                 url: "/dashboard",
+      //                 method: "POST",
+      
+      //                 data: {}
+      
+      //             }).done(function(data) {
+      
+      //                 if (data) {
+      //                     if (data.status == 'error') {
+      
+      //                         var errors = '<ul>';
+      //                         $.each(data.message, function(key, value) {
+      //                             errors = errors + '<li>' + value.msg + '</li>';
+      //                         });
+      
+      //                         errors = errors + '</ul>';
+      //                         $("#msgDiv").html(errors).show();
+      //                     } else {
+      //                         $("#msgDiv").removeClass('alert-danger').addClass('alert-success').html(data.message).show();
+      //                     }
+      //                 }
+      //             });
+      //         }
+      //     });
+      // });
+
+      </script>
+   

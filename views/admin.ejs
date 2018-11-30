@@ -1,0 +1,132 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= (typeof title != "undefined" ? title : "") %></title>
+    <link rel='stylesheet' href='bootstrap/dist/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='fontawesome/css/all.min.css'>
+    <link rel='stylesheet' href='admin-lte/dist/css/adminlte.min.css'>
+    <link rel='stylesheet' href='fontawesome/css/fontawesome.css'>
+    <link rel='stylesheet' href='admin-lte/dist/css/adminlte.min.css'>
+    <link rel='stylesheet' href='admin-lte/plugins/iCheck/square/blue.css'>
+      </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <% if (user) {%>
+      <a class="navbar-brand" href="dashboard"></a><%}%>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin">Admin</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+        <% if (user) {%>
+        <li class="nav-item">
+         <a class="nav-link disabled" href="logout">Logout</a>
+       </li>
+       <%} else {%>
+        <li class="nav-item">
+        <a class="nav-link disabled" href="login">Login</a>
+      </li><%}%>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main">
+
+      <div class="container-fluid">
+        <!-- Example row of columns -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Users Table</h3>
+
+                <div class="card-tools">
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tbody><tr>
+                    <th>Matric</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone No</th>
+                    <th>Faculty</th>
+                    <th>Department</th>
+                    <th>Programme</th>
+                    <th>Level</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                  </tr>
+                  <% if (typeof usersArray !== 'undefined' && usersArray.length > 0) {%>
+                  <%for (var i = 0; i < usersArray.length; i++) { %>
+                  <tr>
+                  <td><%= usersArray[i].matric %></td>
+                    <td><%= usersArray[i].username %></td>
+                    <td><%= usersArray[i].email %></td>
+                    <td><%= usersArray[i].phone %></td>
+                    <td><%= usersArray[i].faculty %></td>
+                    <td><%= usersArray[i].department %></td>
+                    <td><%= usersArray[i].programme %></td>
+                    <td><%= usersArray[i].level %></td>
+                    <td><%= usersArray[i].address %></td>
+                    <td><span class="tag tag-success">Approved</span></td>
+                    <td><a href="#"><i class="fa fa-edit text-primary"></i></a>
+                        <a href="#"><i class="fa fa-trash text-danger"></i></a>
+                    </td>
+                    </tr>
+                    <%}%>
+                    <% } %>
+                </tbody></table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+          
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+      <strong class="text-center">Copyright &copy; <%= (typeof copyrightYear != "undefined" ? copyrightYear : "") %> <a href="#">Okandeji</a>.</strong> All rights reserved.
+    </footer>
+
+<!-- Fontawesome -->
+<script src="/fontawesome/js/fontawesome.min.js"></script>
+
+
+
+<!-- jQuery -->
+<script src="admin-lte/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="admin-lte/dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="admin-lte/plugins/chart.js/Chart.min.js"></script>
+<script src="admin-lte/dist/js/demo.js"></script>
+<script src="admin-lte/dist/js/pages/dashboard3.js"></script>
+  </body>
+</html>

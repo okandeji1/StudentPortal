@@ -1,0 +1,114 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= (typeof title != "undefined" ? title : "") %></title>
+    <link rel='stylesheet' href='bootstrap/dist/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='fontawesome/css/all.min.css'>
+    <link rel='stylesheet' href='admin-lte/dist/css/adminlte.min.css'>
+    <link rel='stylesheet' href='fontawesome/css/fontawesome.css'>
+    <link rel='stylesheet' href='admin-lte/dist/css/adminlte.min.css'>
+    <link rel='stylesheet' href='admin-lte/plugins/iCheck/square/blue.css'>
+      </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <% if (user) {%>
+      <a class="navbar-brand" href="dashboard">Dashboard</a><%}%>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin">Admin</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+        <% if (user) {%>
+        <li class="nav-item">
+         <a class="nav-link disabled" href="logout">Logout</a>
+       </li>
+       <%} else {%>
+        <li class="nav-item">
+        <a class="nav-link disabled" href="login">Login</a>
+      </li><%}%>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3"></h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam finibus eget nunc sit amet condimentum. Nunc eu egestas felis. Mauris auctor eros ut ultrices finibus. Nulla a hendrerit est, non lacinia enim. Phasellus at arcu ante. Nulla blandit maximus consectetur. Nulla facilisi. Vivamus congue magna at mi viverra viverra.
+
+          Vestibulum consequat sit amet massa et maximus. Pellentesque at ante ac enim mattis posuere eget quis erat. Nullam eu ultricies nibh, nec accumsan augue. Fusce convallis nec massa et elementum. Fusce eleifend erat dictum mi varius, at laoreet erat ultrices. Suspendisse semper tempus neque eu commodo. Nullam pretium porttitor leo quis congue. Duis ut nisl sed tortor eleifend sagittis. Integer eu lacus luctus, sodales ligula sit amet, imperdiet leo. Fusce ante nisl, semper in orci ac, lobortis tincidunt justo. Etiam nec euismod ex, non egestas est. Nulla in convallis ex, at aliquet neque. Proin pretium, enim nec egestas dictum, odio felis molestie tellus, eget suscipit est dui eget sem.
+          
+          Vivamus quis vehicula mi, at sollicitudin elit. Quisque vitae maximus nisl. Morbi in sollicitudin elit, nec vehicula purus. Mauris molestie, ipsum sit amet rutrum malesuada, nulla quam semper lacus, quis pulvinar dui sem nec tortor. Morbi placerat, enim in molestie dapibus, sapien quam varius dolor, sed suscipit elit sem at risus. Suspendisse potenti. Sed bibendum dui at enim varius fermentum. Sed aliquam nisl hendrerit tempus efficitur. Aenean interdum nec odio sit amet lobortis. Pellentesque eu pharetra risus. Aenean pellentesque risus est, non porta ante laoreet nec. Curabitur eleifend diam sit amet est dapibus, at ullamcorper lorem cursus.
+          
+          </p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+      <strong class="text-center">Copyright &copy; <%= (typeof copyrightYear != "undefined" ? copyrightYear : "") %> <a href="#">Okandeji</a>.</strong> All rights reserved.
+    </footer>
+
+<!-- Fontawesome -->
+<script src="/fontawesome/js/fontawesome.min.js"></script>
+
+
+
+<!-- jQuery -->
+<script src="admin-lte/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="admin-lte/dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="admin-lte/plugins/chart.js/Chart.min.js"></script>
+<script src="admin-lte/dist/js/demo.js"></script>
+<script src="admin-lte/dist/js/pages/dashboard3.js"></script>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+{
+  "_args": [
+    [
+      "admin-lte@v3.0.0-alpha.2",
+      "/home/okandeji/mywebsite"
+    ]
+  ],
+  "_from": "admin-lte@3.0.0-alpha.2",
+  "_hasShrinkwrap": false,
+  "_id": "admin-lte@3.0.0-alpha.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/admin-lte",
+  "_nodeVersion": "8.11.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/admin-lte_3.0.0-alpha.2_1525557278941_0.8509469163817867"
+  },
+  "_npmUser": {
+    "email": "abdullah@almsaeedstudio.com",
+    "name": "almasaeed2010"
+  },
+  "_npmVersion": "6.0.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "admin-lte",
+    "raw": "admin-lte@v3.0.0-alpha.2",
+    "rawSpec": "v3.0.0-alpha.2",
+    "scope": null,
+    "spec": "3.0.0-alpha.2",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/admin-lte/-/admin-lte-3.0.0-alpha.2.tgz",
+  "_shasum": "5da08f9b9273fc0c445d4f98cbc03aa35631adcd",
+  "_shrinkwrap": null,
+  "_spec": "admin-lte@v3.0.0-alpha.2",
+  "_where": "/home/okandeji/mywebsite",
+  "author": {
+    "email": "abdullah@almsaeedstudio.com",
+    "name": "Abdullah Almsaeed"
+  },
+  "bugs": {
+    "url": "https://github.com/almasaeed2010/AdminLTE/issues"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^1.0.0-beta.4",
+    "bootstrap": "^4.1.0",
+    "chart.js": "^2.7.2",
+    "datatables.net": "^1.10.16",
+    "datatables.net-bs4": "^1.10.16",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1",
+    "popper.js": "^1.14.3"
+  },
+  "description": "Responsive open source admin dashboard and control panel.",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.23.7",
+    "clean-css-cli": "^4.1.11",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-plugin-compat": "^2.2.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "fs-extra": "^5.0.0",
+    "ncp": "^2.0.0",
+    "node-sass": "^4.8.3",
+    "nodemon": "^1.17.3",
+    "npm-run-all": "^4.1.2",
+    "path": "^0.12.7",
+    "rollup": "^0.55.5",
+    "rollup-plugin-babel": "^3.0.3",
+    "style-loader": "^0.19.1",
+    "uglify-js": "^3.3.22"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 979,
+    "integrity": "sha512-zVa70VtvW5MLCfKfdsJ05U6kAquWgu+GNoxkzkI0jn+fRWH1omuyJALSI9v+6g8sOQmO1oqWJghuyPW697063g==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJa7iggCRA9TVsSAnZWagAAj1gQAKHVDQrPriPt1vqgWZPX\nAU+vnIWDta/sXZw06TshvzeilMA3ifEAOezQ/pdZjNClbHNQnROq5TixRDwt\nd1r/wqzZpa8n3DBiqY8Xn7didVCepqNznzzuedcBVGyGN8f5kzASTvEgNPDz\n6XnAzNS4RstUBoFDPbaPzOhcxO3tBFN1XvjmszHFbSDSuhbo9bdxiCUi7AYB\nGy6h2pBlvRk/vtFAKydGuy7W+mfbONp4AhNk34VqM2mCKnj01tCJ3fzcfN8D\n64QW/9yJ2lJ8lg4Dx3LygVs2OKgyJ0LuS8qQDmMOJQ8sgXCqQdg+Jtn8mig9\nTdV7VXtBrXxd+IZep6aZ7lNIrUgDZ+oQGB2XqSkTSo78HiOmYNe/1DltBwWo\nhJXe3DcEc6pmPrDAj/vj3PaACyRjcV2honaOF7qK2m0LIt0KhG/UPqO6qTNb\n4ZC1pGaFuRB8Hjmv+todQmFRvOL2wC/0vO0DHFZii4P+2r1X+NrhImC9KHsG\nhjfowliKFeMGuaLgEwRnQrmYb6tzAlIOjmxjXGn0IMVgRKJgc889c+khN81z\nXMkOH7YWEHGZ18KycSLFvkxnWv81FpdRlh/F/K4KvySgXfnkLsoSZ7MYSpNh\nPOeE4b4bhqfs1R9WzLiW+MAtGQxTjrHMVnURBAkjJ9/+dRzUYkqMs4NBbMsw\nePAg\r\n=2zxz\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "5da08f9b9273fc0c445d4f98cbc03aa35631adcd",
+    "tarball": "https://registry.npmjs.org/admin-lte/-/admin-lte-3.0.0-alpha.2.tgz",
+    "unpackedSize": 35025614
+  },
+  "gitHead": "7bf4139bae8b23aabae2ae78ff82a003ceadf5a4",
+  "homepage": "https://adminlte.io",
+  "keywords": [
+    "admin",
+    "control-panel",
+    "css",
+    "dashboard",
+    "framework",
+    "responsive",
+    "sass",
+    "template",
+    "theme"
+  ],
+  "license": "MIT",
+  "main": "dist/js/adminlte.min.js",
+  "maintainers": [
+    {
+      "name": "almasaeed2010",
+      "email": "abdullah@almsaeedstudio.com"
+    }
+  ],
+  "name": "admin-lte",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "font-awesome": "^4.7.0"
+  },
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/almasaeed2010/AdminLTE.git"
+  },
+  "sass": "build/scss/AdminLTE.scss",
+  "scripts": {
+    "compile": "npm-run-all --parallel js css",
+    "css": "npm-run-all --sequential css-compile css-minify",
+    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 build/scss/AdminLTE.scss dist/css/adminlte.css",
+    "css-minify": "cleancss --level 1 --output dist/css/adminlte.min.css dist/css/adminlte.css",
+    "dev": "npm-run-all --parallel watch sync",
+    "js": "npm-run-all --sequential js-compile js-minify",
+    "js-compile": "rollup -c --sourcemap",
+    "js-minify": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/adminlte.js.map,includeSources,url=adminlte.min.js.map\" --output dist/js/adminlte.min.js dist/js/adminlte.js",
+    "plugins": "node build/npm/Publish.js -v",
+    "production": "npm-run-all --parallel compile && node build/npm/Publish.js -v",
+    "sync": "browser-sync start --server --files *.html pages/ dist/",
+    "watch": "npm-run-all --parallel watch-css watch-js",
+    "watch-css": "nodemon --watch build/scss -e scss -x \"npm run css\"",
+    "watch-js": "nodemon --watch build/js -e js -x \"npm run js\""
+  },
+  "style": "dist/css/adminlte.css",
+  "version": "3.0.0-alpha.2"
+}

@@ -1,0 +1,63 @@
+<%- include partials/header -%>
+<%- include partials/navigation -%>
+<%- include partials/sidebar -%>
+
+<h3 class="text-center"><%= (typeof message != "undefined" ? message : "") %></h3><small>Click on the link at left-hand side to continue</small>
+<div class="col-10">
+<div class="card">
+  <div class="card-header">
+    <div class="card-body table-responsive">
+      <table class="table table-bordered">
+          <tr>
+            <td class="bg-primary">Matric No</td>
+            <td><%= user.matric%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Full-Name</td>
+            <td><%= user.username%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Faculty</td>
+            <td><%= user.email%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Department</td>
+            <td><%= user.department%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Programme</td>
+            <td><%= user.programme%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Current Level</td>
+            <td><%= user.level%></td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<div class="col-md-8 float-right">
+  <div class="card">
+    <div class="card-header">
+      <h4>LEVEL ADVISERS'S INFORMATION</h4>
+      <div class="card-body table-responsive">
+        <table class="table">
+            <tr>
+              <td class="bg-primary">NAME</td>
+              <td>SOLIU Fatai Okandeji</td>
+            </tr>
+            <tr>
+              <td class="bg-primary">EMAIL</td>
+              <td>okandeji2012@gmail.com</td>
+            </tr>
+            <tr>
+              <td class="bg-primary">MOBILE NUMBER</td>
+              <td>07087828631</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include partials/footer -%>

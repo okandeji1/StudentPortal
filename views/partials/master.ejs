@@ -1,0 +1,308 @@
+//  (req, res, next) => {
+    //  console.log('Submitted');
+    //     //   return;
+    //     const user = new User();
+    //     // console.log(req.body.email);
+
+    //     user.matric = req.body.matric;
+    //     user.name = req.body.name;
+    //     user.email = req.body.email;
+    //     user.password = req.body.password;
+    //     user.phone = req.body.phone;
+    //     user.faculty = req.body.faculty;
+    //     user.department = req.body.department;
+    //     user.programme = req.body.programme;
+    //     user.level = req.body.level;
+    //     user.address = req.body.address;
+    //     user.photo = req.body.photo;
+    //     user.save((err) => {
+    //         if (err) {
+    //             console.log(err);
+    //             return;
+    //         } else {
+    //             res.redirect('/about');
+    //         }
+    //  });
+    // }
+
+
+
+
+    successRedirect: '/dashboard', // redirect to the secure section
+        failureRedirect: '/error', // redirect back to the error page if there is an error
+
+
+        // function formSubmit() {
+//     document.getElementById("#form").submit((e) => {
+//         e.preventDefault();
+//         app.post('/about', (req, res, next) => {
+//             console.log('Form is good');
+//             return;
+//         });
+//     });
+// }
+
+// $(() => {
+//     $('#form').on('submit', (e) => {
+//         e.preventDefault();
+//         $.ajax({
+//             url: '/about',
+//             type: 'POST',
+//             data: $('#form').serialize(),
+//             success: function(data) {
+//                 alert('Successfully  submitted');
+//             }
+//         });
+//     });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+// catch 404 and forwarding to error handler
+// app.use(function(req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+// });
+
+// /// error handlers
+
+// // development error handler
+// // will print stacktrace
+// if (app.get('env') === 'development') {
+//     app.use(function(err, req, res, next) {
+//         res.status(err.status || 500);
+//         res.render('error', {
+//             message: err.message,
+//             error: err
+//         });
+//     });
+// }
+
+// production error handler
+// no stacktraces leaked to user
+// app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         message: err.message,
+//         error: {}
+//     });
+// });
+
+
+
+
+
+
+
+
+//  Passport Authentication
+
+// passport.use(new LocalStrategy(
+//     function(email, password, done) {
+//         User.findOne({ email: email }, function(err, user) {
+//             if (err) { return done(err); }
+//             if (!user) { return done(null, false); }
+//             if (!user.verifyPassword(password)) { return done(null, false); }
+//             return done(null, user);
+//         });
+//     }
+// ));
+
+// passport.serializeUser(function(user, done) {
+//     done(null, user.id);
+// });
+
+// passport.deserializeUser(function(id, done) {
+//     User.findById(id, function(err, user) {
+//         done(err, user);
+//     });
+// });
+
+
+
+
+
+User.authenticate = passport.use('local-signup', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    },
+    function(email, password, callback) {
+        user.findOne({ email: email })
+            .exec(function(err, user) {
+                if (err) {
+                    return callback(err)
+                } else if (!user) {
+                    var err = new Error('User not found.');
+                    err.status = 401;
+                    return callback(err);
+                }
+                bcrypt.compare(password, user.password, function(err, result) {
+                    if (result === true) {
+                        return callback(null, user);
+                    } else {
+                        return callback();
+                    }
+                })
+            });
+    }
+));
+
+
+
+
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+
+
+
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+
+// Passport Auth
+
+// userSchema.statics.authenticate = passport.use(new LocalStrategy(
+//     function(email, password, callback) {
+//         user.findOne({ email: email })
+//             .exec(function(err, user) {
+//                 if (err) {
+//                     return callback(err)
+//                 } else if (!user) {
+//                     var err = new Error('User not found.');
+//                     err.status = 401;
+//                     return callback(err);
+//                 }
+//                 bcrypt.compare(password, user.password, function(err, result) {
+//                     if (result === true) {
+//                         return callback(null, user);
+//                     } else {
+//                         return callback();
+//                     }
+//                 })
+//             });
+//     }
+// ));
+
+// passport.serializeUser(function(user, done) {
+//     done(null, user.id);
+// });
+
+// passport.deserializeUser(function(id, done) {
+//     User.findById(id, function(err, user) {
+//         done(err, user);
+//     });
+// });
+
+
+
+
+
+
+
+
+
+
+
+// =========================================================================
+// passport session setup ==================================================
+// =========================================================================
+// required for persistent login sessions
+// passport needs ability to serialize and unserialize users out of session
+
+// used to serialize the user for the session
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+// used to deserialize the user
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
+});
+
+// =========================================================================
+// LOCAL SIGNUP ============================================================
+// =========================================================================
+// we are using named strategies since we have one for login and one for signup
+// by default, if there was no name, it would just be called 'local'
+
+passport.use('local', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    },
+    function(req, email, password, done) {
+
+        // asynchronous
+        process.nextTick(function() {
+            User.findOne({ 'local.email': email }, function(err, user) {
+                // if there are any errors, return the error
+                if (err) {
+                    return done(err);
+                }
+                // check to see if theres already a user with that email
+                // if (user) {
+                //     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                // } else {
+                //     // if there is no user with that email
+                //     // create the user
+                //     var newUser = new User();
+
+                //     // set the user's local credentials
+                //     newUser.local.email = email;
+                //     newUser.local.password = newUser.generateHash(password);
+
+                //     // save the user
+                //     newUser.save(function(err) {
+                //         if (err)
+                //             throw err;
+                //         return done(null, newUser);
+                //     });
+                // }
+
+            });
+
+        });
+
+    }));
+
+};
+
+
+
+
+<% if(typeof errors == "undefine"){%>
+                  <div class="alert alert-danger"><%= (typeof errors != "undefined" ? errors : "") %></div>
+                <%}else {%>
+                <div class="alert alert-success"><%= (typeof errors != "undefined" ? errors : "") %></div>
+            <%}%>

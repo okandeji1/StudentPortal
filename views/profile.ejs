@@ -1,0 +1,60 @@
+<%- include partials/header -%>
+<%- include partials/navigation -%>
+<%- include partials/sidebar -%>
+
+<div class="col-10">
+<div class="card">
+  <div class="card-header">
+    <div class="card-body table-responsive">
+      <table class="table table-bordered">
+          <tr>
+            <td class="bg-primary">Matric No</td>
+            <td><%= user.matric%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Full-Name</td>
+            <td><%= user.username%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Faculty</td>
+            <td><%= user.faculty%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Department</td>
+            <td><%= user.department%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Programme</td>
+            <td><%= user.programme%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Current Level</td>
+            <td><%= user.level%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Email</td>
+            <td><%= user.email%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Home Address</td>
+            <td><%= user.address%></td>
+          </tr>
+          <tr>
+            <td class="bg-primary">Phone Number</td>
+            <td><%= user.phone%></td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<%- include partials/footer -%>
