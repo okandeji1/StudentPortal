@@ -17,6 +17,8 @@ const mongoose = require('mongoose');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const app = express();
+const swal = require('sweetalert');
+const multer = require('multer');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -143,6 +145,7 @@ app.get('/profile', (req, res, next) => {
         if (err) {
             console.log(err)
             req.flash("error", "Something went wrong");
+            swal("Something went wrong")
         }
         // console.log(user)
     })
@@ -207,12 +210,13 @@ app.post('/dashboard', (req, res, next) => {
         User.register(new User(newUser), password,
             (err, newUsers) => {
 
-                console.log(newUsers);
+                // console.log(newUsers);
 
                 if (err) {
                     console.log(err);
                 } else {
                     req.flash('Successfully Signed Up!  Nice to meet you' + req.body.username)
+                        // swal("Successfully Signed Up!  Nice to meet you" + req.body.username)
                     res.redirect('/login');
 
                 }
@@ -236,6 +240,7 @@ app.post('/login', passport.authenticate('local', {
             if (err) throw err;
             if (!user) {
                 return done(null, false, { message: 'No user found' });
+                swal("No user found")
             } else {
                 req.session.user = user;
                 req.session.save((err) => {
@@ -263,40 +268,103 @@ app.get('/logout', (req, res, next) => {
         }
         res.redirect('/login');
     });
-});;
-
-
-
-// catch 404 and forwarding to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
 });
 
-/// error handlers
+// app.get('/edit', (req, res) => {
+//     let editUser = req.user;
+//     User.findOne(editUser, (err, editUser) => {
+//         console.log(editUser)
+//         if (err) {
+//             return
+//         } else {
+//             console.log(editUser)
+//         }
+//     })
+//     res.render('edit', { editUser });
+// })
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
+// // Edit User Data
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
+// app.post('/edit', (req, res) => {
+//     let user = {};
+//     user.username = req.body.username;
+//     user.email = req.body.email;
+//     user.phone = req.body.phone;
+//     user.address = req.body.addresss;
+//     user.photo = req.body.photo
+
+//     let query = { user }
+
+//     User.findOneAndUpdate(query, user, (err) => {
+//         if (err) {
+//             console.log(err);
+//             return;
+//         } else {
+//             res.redirect('/admin')
+//             req.flash("message", "User successfully updated");
+//         }
+//     })
+// })
+
+
+
+app.get('/edit', function(req, res) {
+    res.render('edit', { user: req.user._id });
+});
+
+app.put('/admin', function(req, res) {
+    User.update({ _id: req.params.id }, {
+        username: req.body.username,
+        address: req.body.address
+    }, function(err, users) {
+        if (err) throw err;
+        else res.redirect('/admin' + req.params.id);
     });
 });
+
+app.param('id', function(req, res, next, id) {
+    user.findById(id, function(err, users) {
+        if (err) throw err;
+        else {
+            req.user._id = users;
+            console.log(req.user_id)
+            next();
+        }
+    });
+});
+
+
+
+// // catch 404 and forwarding to error handler
+// app.use(function(req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+// });
+
+// /// error handlers
+
+// // development error handler
+// // will print stacktrace
+// if (app.get('env') === 'development') {
+//     app.use(function(err, req, res, next) {
+//         res.status(err.status || 500);
+//         res.render('error', {
+//             message: err.message,
+//             error: err
+//         });
+//     });
+// }
+
+// // production error handler
+// // no stacktraces leaked to user
+// app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         message: err.message,
+//         error: {}
+//     });
+// });
 
 
 

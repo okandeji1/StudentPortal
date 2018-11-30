@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
 // const expressValidator = require('express-validator');
 
 
@@ -72,8 +73,10 @@ const User = new mongoose.Schema({
 
     photo: {
         type: String,
+        // allowedFormats: ['jpg', 'png'],
+        // transformation: [{ width 500, height: 500, crop: "limit" }],
         required: false,
-        default: 'profile.png'
+        // default: 'profile.png'
 
     },
 

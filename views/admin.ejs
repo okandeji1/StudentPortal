@@ -19,7 +19,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <% if (user) {%>
-      <a class="navbar-brand" href="dashboard"></a><%}%>
+      <a class="navbar-brand" href="dashboard">Dashboard</a><%}%>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -87,7 +87,7 @@
                     <td><%= usersArray[i].level %></td>
                     <td><%= usersArray[i].address %></td>
                     <td><span class="tag tag-success">Approved</span></td>
-                    <td><a href="#"><i class="fa fa-edit text-primary"></i></a>
+                    <td><a href="/edit"><i class="fa fa-edit text-primary"></i></a>
                         <a href="#"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                     </tr>
