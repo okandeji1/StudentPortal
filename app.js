@@ -8,14 +8,14 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const expressSession = require('express-session');
 const passport = require('passport');
-require('./config/passport')(passport); // pass passport for configuration
+// require('./config/passport')(passport); // pass passport for configuration
 const Strategy = require('passport-local');
 const config = require('./config/database');
 const bcrypt = require('bcryptjs');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const routes = require('./routes/index');
-const users = require('./routes/users');
+// const routes = require('./routes/index');
+// const users = require('./routes/users');
 const app = express();
 const swal = require('sweetalert');
 const multer = require('multer');
@@ -30,15 +30,15 @@ app.use(express.static('./public'));
 app.use('/static', express.static(path.join(__dirname, './public')));
 app.use(favicon());
 // app.use(logger('dev'));
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(cookieParser('secretString'));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true, cookie: { maxAge: 60000 } }));
+app.use(require('connect-flash')());
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-// use connect-flash for flash messages stored in session
-app.use(require('connect-flash')());
 app.use(function(req, res, next) {
     res.locals.user = req.user;
     next();
@@ -97,6 +97,55 @@ app.get('/', function(req, res, next) {
     });
 });
 
+// Edit User Data
+
+app.get('/edit/:id', async(req, res) => {
+    try {
+        let editUser = await User.findById({ _id: req.params.id })
+            // console.log(editUser)
+    } catch (error) {
+        res.status(500)
+    }
+});
+
+app.put('/edit/:id', async(req, res) => {
+    try {
+        let editUser = await User.findByIdAndUpdate({
+            _id: req.params.id
+        }, req.body);
+        console.log(editUser)
+    } catch (error) {
+        res.send(500)
+    }
+})
+
+// app.param('id', function(req, res, next, id) {
+//     User.findById(id, function(err, doc) {
+//         if (err) res.json(err);
+//         else {
+//             req.user._id = doc;
+//             next();
+//         }
+//     });
+// });
+
+// app.put('/edit/:id', function(req, res) {
+//     user.findByIdAndUpdate({ id: editUser }, {
+//         name: req.body.name,
+//         age: req.body.age
+//     }, function(err, editUser) {
+//         if (err) res.json(err);
+//         else {
+//             console.log(docs);
+//             res.redirect('/admin/edit/' + editUser);
+//         }
+//     });
+// });
+
+// app.get(':id/edit', function(req, res) {
+//     res.render('edit');
+// });
+
 // Display all user in the admin page
 
 app.get('/admin', function(req, res, next) {
@@ -124,13 +173,13 @@ app.get('/dashboard', function(req, res, next) {
     User.findOne(user, (err, user) => {
         if (err) {
             console.log(err)
-            req.flash("error", "Something went wrong");
         }
-        // console.log(user)
+        // console.log(user._id)
     })
     res.render('dashboard', {
         title: 'Node App',
         message: 'Welcome To Your Portal',
+        error: req.flash("error", "Something went wrong"),
         copyrightYear: new Date().getFullYear()
     });
 });
@@ -155,6 +204,8 @@ app.get('/profile', (req, res, next) => {
 
 app.get('/login', function(req, res, next) {
     res.render('login', {
+        // errors: req.flash('danger', 'Please fill the form properly'),
+        // message: req.flash('success', 'You are registered and can now login'),
         copyrightYear: new Date().getFullYear()
     });
 });
@@ -195,9 +246,9 @@ app.post('/dashboard', (req, res, next) => {
     let errors = req.validationErrors();
 
     if (errors) {
-        // req.flash('danger', 'Please fill the form properly');
         res.render('login', {
-            errors: errors,
+            errors: req.flash('danger', 'Please fill the form properly'),
+            message: req.flash('success', 'You are registered and can now login')
         })
     } else {
 
@@ -216,7 +267,7 @@ app.post('/dashboard', (req, res, next) => {
                     console.log(err);
                 } else {
                     req.flash('Successfully Signed Up!  Nice to meet you' + req.body.username)
-                        // swal("Successfully Signed Up!  Nice to meet you" + req.body.username)
+                    swal("Successfully Signed Up!  Nice to meet you" + req.body.username)
                     res.redirect('/login');
 
                 }
@@ -270,18 +321,7 @@ app.get('/logout', (req, res, next) => {
     });
 });
 
-// app.get('/edit', (req, res) => {
-//     let editUser = req.user;
-//     User.findOne(editUser, (err, editUser) => {
-//         console.log(editUser)
-//         if (err) {
-//             return
-//         } else {
-//             console.log(editUser)
-//         }
-//     })
-//     res.render('edit', { editUser });
-// })
+
 
 // // Edit User Data
 
@@ -308,30 +348,30 @@ app.get('/logout', (req, res, next) => {
 
 
 
-app.get('/edit', function(req, res) {
-    res.render('edit', { user: req.user._id });
-});
+// app.get('/edit', function(req, res) {
+//     res.render('edit');
+// });
 
-app.put('/admin', function(req, res) {
-    User.update({ _id: req.params.id }, {
-        username: req.body.username,
-        address: req.body.address
-    }, function(err, users) {
-        if (err) throw err;
-        else res.redirect('/admin' + req.params.id);
-    });
-});
+// app.put('/admin', function(req, res) {
+//     User.update({ _id: req.params.id }, {
+//         username: req.body.username,
+//         address: req.body.address
+//     }, function(err, users) {
+//         if (err) throw err;
+//         else res.redirect('/admin' + req.params.id);
+//     });
+// });
 
-app.param('id', function(req, res, next, id) {
-    user.findById(id, function(err, users) {
-        if (err) throw err;
-        else {
-            req.user._id = users;
-            console.log(req.user_id)
-            next();
-        }
-    });
-});
+// app.param('id', function(req, res, next, id) {
+//     user.findById(id, function(err, users) {
+//         if (err) throw err;
+//         else {
+//             req.user._id = users;
+//             console.log(req.user_id)
+//             next();
+//         }
+//     });
+// });
 
 
 

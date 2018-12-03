@@ -15,9 +15,6 @@
                 <div class="form-group">
                  <input type="password" required="true" name="password" placeholder="Password" class="form-control">
                 </div>
-                <div class="form-group ">
-                  <input type="hidden" id="msgDiv" class="form-control alert alert-danger display-none" role="alert"><%= (typeof errors != "undefined" ? errors : "") %>
-                </div>
                 <div class="card-footer">
                   <button class="btn btn-outline-success" id="register" type="submit" name="submit">Login</button>
                   <button class="btn btn-outline-primary" type="button" name="submit" data-toggle="modal" data-target="#exampleModalLong">Sign Up</button>
@@ -42,37 +39,37 @@
     <div class="modal-body">
       <form action="/dashboard" method="post">
        <div class="form-group">
-        <input type="text" required="true" id="matric" name="matric" placeholder="Matric No" class="form-control">
+        <input type="text" id="matric" name="matric" placeholder="Matric No" class="form-control">
        </div>
        <div class="form-group">
-        <input type="text" required="true" id="fullname" name="username" placeholder="Full Name" class="form-control">
+        <input type="text" id="fullname" name="username" placeholder="Full Name" class="form-control">
        </div>
        <div class="form-group">
-        <input type="email" required="true" id="email" name="email" placeholder="Email Address" class="form-control">
+        <input type="email" id="email" name="email" placeholder="Email Address" class="form-control">
        </div>
        <div class="form-group">
-        <input type="password" required="true" id="password" name="password" placeholder="Password" class="form-control">
+        <input type="password" id="password" name="password" placeholder="Password" class="form-control">
        </div>
        <div class="form-group">
-         <input type="password" required="true" id="cpassword" name="password2" placeholder="Confirm Password" class="form-control">
+         <input type="password" id="cpassword" name="password2" placeholder="Confirm Password" class="form-control">
        </div>
        <div class="form-group">
-        <input type="text" required="true" id="phone" name="phone" placeholder="Phone Number" class="form-control">
+        <input type="text" id="phone" name="phone" placeholder="Phone Number" class="form-control">
        </div>
        <div class="form-group">
-        <input type="text" required="true" id="faculty" name="faculty" placeholder="Faculty" class="form-control">
+        <input type="text" id="faculty" name="faculty" placeholder="Faculty" class="form-control">
        </div>
        <div class="form-group">
-        <input type="text" required="true" id="department" name="department" placeholder="Department" class="form-control">
+        <input type="text" id="department" name="department" placeholder="Department" class="form-control">
        </div>
        <div class="form-group">
-        <input type="text" required="true" id="programme" name="programme" placeholder="Programme" class="form-control">
+        <input type="text" id="programme" name="programme" placeholder="Programme" class="form-control">
        </div>
        <div class="form-group">
-        <input type="text" required="true" id="level" name="level" placeholder="Current Level" class="form-control">
+        <input type="text" id="level" name="level" placeholder="Current Level" class="form-control">
        </div>
        <div>
-        <textarea rows="" id="address" required="true" cols="" placeholder="Address" name=address class="form-control"></textarea>
+        <textarea rows="" id="address" cols="" placeholder="Address" name=address class="form-control"></textarea>
        </div>
        <div class="form-group">
         <input type="file" id="photo" name="photo" class="form-control">
