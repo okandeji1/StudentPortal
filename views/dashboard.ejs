@@ -6,9 +6,6 @@
 <div class="col-10">
 <div class="card">
   <div class="card-header">
-  <% if (error) { %>
-   <div class="alert alert-danger"><%= message %></div>
- <% } %>
     <div class="card-body table-responsive">
       <table class="table table-bordered">
           <tr>
@@ -35,6 +32,11 @@
             <td class="bg-primary">Current Level</td>
             <td><%= user.level%></td>
           </tr>
+          <tr>
+            <td class="bg-primary">Current Level</td>
+            <td><img src="public/images/<%= user.photo%>"></td>
+          </tr>
+
       </table>
     </div>
   </div>

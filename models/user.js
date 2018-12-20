@@ -30,8 +30,8 @@ const User = new mongoose.Schema({
     },
 
     password: {
-        type: String
-            // required: true
+        type: String,
+        // required: true
 
     },
 
@@ -73,10 +73,10 @@ const User = new mongoose.Schema({
 
     photo: {
         type: String,
-        // allowedFormats: ['jpg', 'png'],
+        allowedFormats: ['jpg', 'png'],
         // transformation: [{ width 500, height: 500, crop: "limit" }],
         required: false,
-        // default: 'profile.png'
+        default: 'profile.png'
 
     },
 

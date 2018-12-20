@@ -1,0 +1,42 @@
+app.get('/user/:id/edit', function(req, res){
+	res.render('edit-form', {user: req.userId});
+});
+ 
+app.put('/user/:id', function(req, res){
+	user.findByIdAndUpdate({_id: req.params.id},
+	                   {
+			   	  name: req.body.name,
+				  age   : req.body.age
+			   }, function(err, docs){
+			 	if(err) res.json(err);
+				else
+				{ 
+				   console.log(docs);
+				   res.redirect('/user/'+req.params.id);
+				 }
+			 });
+});
+ 
+app.param('id', function(req, res, next, id){
+	user.findById(id, function(err, docs){
+			if(err) res.json(err);
+			else
+			{
+				req.userId = docs;
+				next();
+			}
+		});	
+});
+ 
+ 
+app.get('/user/:id', function(req, res){
+	res.render('show', {user: req.userId});
+});
+
+<% if (errors) {%>
+                  <div class="form-control alert alert-danger hidden" role="alert"><%= errors.danger %></div>
+                <%} else{ %>
+                <div class="form-control alert alert-success hidden" role="alert"><%= message.success %></div>
+                <%}%>
+
+5bfecb0ee3af4317e92160e1
